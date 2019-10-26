@@ -3,6 +3,7 @@ package nikita.party3;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,9 +34,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class Main2Activity extends AppCompatActivity implements RewardedVideoAdListener {
 
-
+    NavigationView navigationView;
     private int reward;
     RewardedVideoAd mRewardedVideoAd;
     private DrawerLayout dl;
@@ -50,13 +53,15 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         setContentView(R.layout.activity_main2);
         buttonstartbanner = findViewById(R.id.buttonstartbanner);
         dl = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
         dl.addDrawerListener(toggle);
-        NavigationView navigationView =  findViewById(R.id.navView);
+        navigationView =  findViewById(R.id.navView);
         toggle.syncState();
 
         setupDrawerContent(navigationView);
@@ -66,8 +71,10 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         buttonstartbanner.setEnabled(false);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
 
 
 
@@ -79,7 +86,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
             public void onSuccess(Uri uri) {
                 imageView = findViewById(R.id.ava);
                 Picasso.get().load(uri).resize(75,75).centerCrop()
-                        .into(imageView);  //ВАШ IMAGEVIEW,без id работать не будет
+                        .into(imageView);
 
             }
 
@@ -101,20 +108,10 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
                 new AdRequest.Builder().build());
 
 
-        buttonstartbanner.setOnClickListener(new View.OnClickListener() {
-            @Override
 
-            public void onClick(View view) {
-                buttonstartbanner.setEnabled(false);
-                if (mRewardedVideoAd.isLoaded()) {
-                    mRewardedVideoAd.show();
-                } else {
-                    onRewardedVideoAdLoaded();
-                }
-            }
-        });
 
     }
+
 
 
 
@@ -164,9 +161,33 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
 
     @Override
-    public void onRewardedVideoAdLoaded() {
-        buttonstartbanner.setEnabled(true);
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                dl.openDrawer(Gravity.LEFT);
+        }
+        return (super.onOptionsItemSelected(menuItem));
+    }
 
+
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+
+        buttonstartbanner.setEnabled(true);
+        buttonstartbanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View view) {
+                buttonstartbanner.setEnabled(false);
+                if (mRewardedVideoAd.isLoaded()) {
+                    mRewardedVideoAd.show();
+                } else {
+                    onRewardedVideoAdLoaded();
+                }
+            }
+        });
     }
 
     @Override
@@ -187,18 +208,20 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     @Override
     public void onRewarded(RewardItem rewardItem) {
 
-        
+
 
     }
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-
+        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054", new AdRequest.Builder().build());
+        buttonstartbanner.setEnabled(true);
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-
+        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054", new AdRequest.Builder().build());
+        buttonstartbanner.setEnabled(true);
     }
 
     @Override
@@ -206,4 +229,6 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054", new AdRequest.Builder().build());
         buttonstartbanner.setEnabled(true);
     }
+
+
 }
