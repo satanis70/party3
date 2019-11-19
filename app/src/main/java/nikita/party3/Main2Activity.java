@@ -30,23 +30,28 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Main2Activity extends AppCompatActivity implements RewardedVideoAdListener {
 
     NavigationView navigationView;
-    private int reward;
+    private int coin;
     RewardedVideoAd mRewardedVideoAd;
     private DrawerLayout dl;
     TextView textViewnameuser;
     ImageView imageView;
     Button buttonstartbanner;
+    List coinList;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+    FirebaseDatabase firebaseDatabase;
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
     StorageReference storageRef = storage.getReferenceFromUrl("gs://party2-ec0fd.appspot.com");
@@ -73,7 +78,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        coinList = new ArrayList<Integer>();
 
 
 
@@ -105,8 +110,8 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         mRewardedVideoAd.setRewardedVideoAdListener(this);
 
         mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
-                new AdRequest.Builder().build());
-
+                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
 
 
@@ -174,7 +179,6 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     @Override
     public void onRewardedVideoAdLoaded() {
 
-
         buttonstartbanner.setEnabled(true);
         buttonstartbanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,32 +206,37 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
     @Override
     public void onRewardedVideoAdClosed() {
+        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
         onRewardedVideoAdLoaded();
+
     }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
 
-
+        DatabaseReference myref= firebaseDatabase.getReference("coin");
+        coinList.add(coin+1);
+        myref.setValue(coinList);
 
     }
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054", new AdRequest.Builder().build());
-        buttonstartbanner.setEnabled(true);
+        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054", new AdRequest.Builder().build());
-        buttonstartbanner.setEnabled(true);
+        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
     }
 
     @Override
     public void onRewardedVideoCompleted() {
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054", new AdRequest.Builder().build());
-        buttonstartbanner.setEnabled(true);
+        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
     }
 
 

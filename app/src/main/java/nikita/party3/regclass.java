@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -38,7 +40,7 @@ public class regclass extends Activity {
     String urlImageUpload = "https://firebasestorage.googleapis.com/v0/b/party2-ec0fd.appspot.com/o/images%2Fstars.jpg?alt=media&token=d0d19b62-5001-45a1-bbe4-35387c39f425";
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Uri filePath;
-
+    FirebaseDatabase firebaseDatabase;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -47,7 +49,7 @@ public class regclass extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_layout);
-        //Picasso.get().load(urlImageUpload).into(imageView);
+
         Button buttonUpload = (Button) findViewById(R.id.buttonUp);
         Button buttonChoose = (Button) findViewById(R.id.buttonChoise);
         imageView = (ImageView) findViewById(R.id.imgView);
@@ -60,6 +62,7 @@ public class regclass extends Activity {
                 //new AuthUI.IdpConfig.FacebookBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
+
 
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +112,6 @@ public class regclass extends Activity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK){
 
-
-                Toast.makeText(this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
 
             } else {
                 Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
