@@ -37,7 +37,9 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Main2Activity extends AppCompatActivity implements RewardedVideoAdListener {
@@ -49,18 +51,18 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     TextView textViewnameuser;
     ImageView imageView;
     Button buttonstartbanner;
-    List coinList;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase firebaseDatabase;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-
     StorageReference storageRef = storage.getReferenceFromUrl("gs://party2-ec0fd.appspot.com");
+    private DatabaseReference mDatabase;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         setContentView(R.layout.activity_main2);
         buttonstartbanner = findViewById(R.id.buttonstartbanner);
         dl = findViewById(R.id.drawer_layout);
@@ -68,6 +70,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         dl.addDrawerListener(toggle);
         navigationView =  findViewById(R.id.navView);
         toggle.syncState();
+
 
         setupDrawerContent(navigationView);
         View headerView = navigationView.getHeaderView(0);
@@ -78,7 +81,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        coinList = new ArrayList<Integer>();
+
 
 
 
@@ -214,11 +217,8 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-
-        DatabaseReference myref= firebaseDatabase.getReference("coin");
-        coinList.add(coin+1);
-        myref.setValue(coinList);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(user.getUid()).setValue(1);
     }
 
     @Override
