@@ -3,6 +3,7 @@ package nikita.party3;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,8 +32,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -48,14 +55,14 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     private int coin;
     RewardedVideoAd mRewardedVideoAd;
     private DrawerLayout dl;
-    TextView textViewnameuser;
+    TextView textViewnameuser, textView2;
     ImageView imageView;
     Button buttonstartbanner;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase firebaseDatabase;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl("gs://party2-ec0fd.appspot.com");
-    private DatabaseReference mDatabase;
+    DatabaseReference mDatabase;
 
 
     @Override
@@ -70,14 +77,14 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         dl.addDrawerListener(toggle);
         navigationView =  findViewById(R.id.navView);
         toggle.syncState();
-
+        textView2 = findViewById(R.id.textView2);
 
         setupDrawerContent(navigationView);
         View headerView = navigationView.getHeaderView(0);
         textViewnameuser = headerView.findViewById(R.id.textViewusername);
         textViewnameuser.setText(user.getDisplayName());
         buttonstartbanner.setEnabled(false);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -116,7 +123,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
                 new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -217,8 +224,21 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(user.getUid()).setValue(1);
+
+        mDatabase.child("users").child(user.getUid()).setValue(22);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Integer res = dataSnapshot.child("users").child(user.getUid()).getValue(Integer.class);
+                textView2.setText(String.valueOf(res));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
