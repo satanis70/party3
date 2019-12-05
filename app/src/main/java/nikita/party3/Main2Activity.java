@@ -125,6 +125,22 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    Integer res = dataSnapshot.child("users").child(user.getUid()).getValue(Integer.class);
+                if (res!=null) {
+                    textView2.setText(String.valueOf(res));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
@@ -225,12 +241,24 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     @Override
     public void onRewarded(RewardItem rewardItem) {
 
-        mDatabase.child("users").child(user.getUid()).setValue(22);
+
+
+
+
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Integer res = dataSnapshot.child("users").child(user.getUid()).getValue(Integer.class);
-                textView2.setText(String.valueOf(res));
+                if (res!=null){
+                    mDatabase.child("users").child(user.getUid()).setValue(res+1);
+                    textView2.setText(String.valueOf(res));
+                } else {
+                    mDatabase.child("users").child(user.getUid()).setValue(1);
+                    textView2.setText(String.valueOf(1));
+                }
+
+
+
 
             }
 
@@ -240,6 +268,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
             }
         });
     }
+
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
