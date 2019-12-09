@@ -250,7 +250,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Integer res = dataSnapshot.child("users").child(user.getUid()).getValue(Integer.class);
                 if (res!=null){
-                    mDatabase.child("users").child(user.getUid()).setValue(res+1);
+                    mDatabase.child("users").child(user.getUid()).setValue(res+=1);
                     textView2.setText(String.valueOf(res));
                 } else {
                     mDatabase.child("users").child(user.getUid()).setValue(1);

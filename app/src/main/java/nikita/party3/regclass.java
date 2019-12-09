@@ -37,7 +37,6 @@ public class regclass extends Activity {
     private static final int MY_REQUEST_CODE = 7117;
     List<AuthUI.IdpConfig> providers;
     private ImageView imageView;
-    String urlImageUpload = "https://firebasestorage.googleapis.com/v0/b/party2-ec0fd.appspot.com/o/images%2Fstars.jpg?alt=media&token=d0d19b62-5001-45a1-bbe4-35387c39f425";
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Uri filePath;
     FirebaseDatabase firebaseDatabase;
@@ -50,12 +49,13 @@ public class regclass extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_layout);
 
-        Button buttonUpload = (Button) findViewById(R.id.buttonUp);
-        Button buttonChoose = (Button) findViewById(R.id.buttonChoise);
-        imageView = (ImageView) findViewById(R.id.imgView);
+        Button buttonUpload = findViewById(R.id.buttonUp);
+        Button buttonChoose =  findViewById(R.id.buttonChoise);
+        imageView =  findViewById(R.id.imgView);
         FirebaseApp.initializeApp(this);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.PhoneBuilder().build(),
@@ -63,6 +63,15 @@ public class regclass extends Activity {
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
 
+        showSignInOptions();
+
+
+        buttonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
 
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,15 +81,9 @@ public class regclass extends Activity {
             }
         });
 
-        buttonChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();
-            }
-        });
 
 
-        showSignInOptions();
+
     }
 
 
@@ -135,40 +138,42 @@ public class regclass extends Activity {
 
 
     private void uploadImage() {
-
-        if(filePath != null)
-        {
+        if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ user.getUid());
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(regclass.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(regclass.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }
-    }
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+            storageReference = storageReference.child("images/" + uid);
+
+            storageReference.putFile(filePath)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                progressDialog.dismiss();
+                                Toast.makeText(regclass.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                                Toast.makeText(regclass.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                        .getTotalByteCount());
+                                progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                            }
+                        });
+
+            }
+
+    }
     public void onClick2(View view) {
         Intent intent = new Intent(regclass.this, Main2Activity.class);
         startActivity(intent);
