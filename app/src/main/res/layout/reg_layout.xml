@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/test2"
     >
 
 
@@ -29,11 +30,11 @@
         android:id="@+id/buttonUp"
         android:layout_width="201dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="164dp"
-        android:text="Жмякай"
+        android:layout_marginBottom="188dp"
+        android:text="Далее"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="105dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imgView"
@@ -46,21 +47,10 @@
         android:id="@+id/buttonChoise"
         android:layout_width="201dp"
         android:layout_height="41dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Выбери фотку"
-        app:layout_constraintBottom_toTopOf="@+id/buttonUp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="105dp" />
+        android:layout_marginTop="84dp"
+        android:text="Выбери фотографию"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Далее"
-        android:onClick="onClick2"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="598dp"
-        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

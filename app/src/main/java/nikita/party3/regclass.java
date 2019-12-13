@@ -58,8 +58,6 @@ public class regclass extends Activity {
 
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.PhoneBuilder().build(),
-                //new AuthUI.IdpConfig.FacebookBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
 
@@ -70,10 +68,11 @@ public class regclass extends Activity {
             @Override
             public void onClick(View v) {
                 chooseImage();
+
             }
         });
 
-        buttonUpload.setOnClickListener(new View.OnClickListener() {
+       buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadImage();
@@ -96,13 +95,6 @@ public class regclass extends Activity {
                         .build(), MY_REQUEST_CODE
         );
     }
-    private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-
-    }
 
 
 
@@ -117,7 +109,7 @@ public class regclass extends Activity {
 
 
             } else {
-                Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -134,6 +126,14 @@ public class regclass extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
     }
 
 
@@ -153,6 +153,8 @@ public class regclass extends Activity {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 progressDialog.dismiss();
                                 Toast.makeText(regclass.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(regclass.this, Main2Activity.class);
+                                startActivity(intent);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -174,11 +176,6 @@ public class regclass extends Activity {
             }
 
     }
-    public void onClick2(View view) {
-        Intent intent = new Intent(regclass.this, Main2Activity.class);
-        startActivity(intent);
-    }
-
 
 
 
