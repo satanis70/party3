@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
-    android:padding="40dp">
+    android:layout_height="match_parent">
+
 
     <ImageView
-        android:id="@+id/ava"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/textViewusername"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:gravity="bottom"
-        android:paddingTop="10dp" />
+        android:src="@drawable/panelsverkhu"
+        tools:ignore="ContentDescription,MissingConstraints">
+    </ImageView>
 
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="100dp"
+        android:paddingLeft="20dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="91dp">
 
 
-</GridLayout>
+        <ImageView
+            android:id="@+id/ava"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textViewusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:paddingTop="10dp" />
+
+    </GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
