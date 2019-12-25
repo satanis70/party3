@@ -36,6 +36,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.2.0-rc03'
     implementation 'com.google.firebase:firebase-ads:18.3.0'
     implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation 'id.zelory:compressor:2.1.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
