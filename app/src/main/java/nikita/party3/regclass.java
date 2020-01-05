@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -29,9 +30,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import id.zelory.compressor.Compressor;
 
 public class regclass extends Activity {
     private static final int MY_REQUEST_CODE = 7117;
@@ -40,6 +45,7 @@ public class regclass extends Activity {
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Uri filePath;
     FirebaseDatabase firebaseDatabase;
+    private Uri imageuri;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -91,7 +97,7 @@ public class regclass extends Activity {
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(providers)
-                        .setTheme(R.style.MyTheme)
+                        .setTheme(R.style.SignIn)
                         .build(), MY_REQUEST_CODE
         );
     }
@@ -119,7 +125,7 @@ public class regclass extends Activity {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //imageView.setImageBitmap(bitmap);
+
             }
             catch (IOException e)
             {
@@ -145,9 +151,19 @@ public class regclass extends Activity {
 
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+            Bitmap bmp = null;
+            try {
+                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+            byte[] data = baos.toByteArray();
+
             storageReference = storageReference.child("images/" + uid);
 
-            storageReference.putFile(filePath)
+            storageReference.putBytes(data)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

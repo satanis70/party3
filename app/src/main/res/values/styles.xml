@@ -25,4 +25,10 @@
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+
+    <style name="SignIn" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/fon3</item>
+    </style>
 </resources>
