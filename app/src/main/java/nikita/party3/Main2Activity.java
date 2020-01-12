@@ -290,4 +290,8 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     }
 
 
+    @Override
+    public void onBackPressed() { }
+
+
 }

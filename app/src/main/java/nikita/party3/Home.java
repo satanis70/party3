@@ -19,10 +19,16 @@ public class Home extends Application {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 
+
+
         }
 
+        onBackPressed();
+    }
 
 
+    public void onBackPressed() {
+    // super.onBackPressed();
 
     }
 }

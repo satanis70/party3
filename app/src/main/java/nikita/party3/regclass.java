@@ -55,6 +55,7 @@ public class regclass extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_layout);
 
+
         Button buttonUpload = findViewById(R.id.buttonUp);
         Button buttonChoose =  findViewById(R.id.buttonChoise);
         imageView =  findViewById(R.id.imgView);
@@ -78,7 +79,7 @@ public class regclass extends Activity {
             }
         });
 
-       buttonUpload.setOnClickListener(new View.OnClickListener() {
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadImage();
@@ -97,9 +98,14 @@ public class regclass extends Activity {
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(providers)
-                        .setTheme(R.style.SignIn)
+                        .setLogo(R.drawable.ava)
+                        .setTheme(R.style.GreenTheme)
+                        .setIsSmartLockEnabled(false)
+                        .setAlwaysShowSignInMethodScreen(true)
                         .build(), MY_REQUEST_CODE
         );
+
+
     }
 
 
@@ -192,6 +198,9 @@ public class regclass extends Activity {
             }
 
     }
+
+    @Override
+    public void onBackPressed() { }
 
 
 
