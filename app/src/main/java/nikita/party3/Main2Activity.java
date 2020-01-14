@@ -69,7 +69,6 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main2);
         buttonstartbanner = findViewById(R.id.buttonstartbanner);
         dl = findViewById(R.id.drawer_layout);
@@ -152,11 +151,17 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         Fragment fragment = null;
         Class fragmentClass;
         switch (menuItem.getItemId()){
+            case R.id.facebook:
+                fragmentClass = Network.class;
+                Intent brawserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/public190886758"));
+                startActivity(brawserIntent);
+                break;
             case R.id.Out:
                 fragmentClass = Network.class;
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(Main2Activity.this, MainActivity.class));
                 break;
+
             default:
                 fragmentClass = Network.class;
 
@@ -171,6 +176,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         FragmentManager fragmentManager = getSupportFragmentManager();
         /*FragmentManager fragmentManager = getFragmentManager();*/
         fragmentManager.beginTransaction().replace(R.id.framelayout,fragment).commit();
+       // menuItem.setIcon(R.drawable.fui_ic_facebook_white_22dp);
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
         dl.closeDrawers();
@@ -182,6 +188,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
 
                 selectItemDrawer(menuItem);
 

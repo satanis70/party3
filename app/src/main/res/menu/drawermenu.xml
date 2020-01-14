@@ -4,11 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main2Activity">
 
-
-
+    <item android:id="@+id/facebook"
+        android:title="@string/vk"
+        android:icon="@drawable/ic_vk"
+        app:showAsAction="ifRoom"
+        >
+    </item>
 
     <item android:id="@+id/Out"
         android:title="@string/logout"
         app:showAsAction="always"
         />
+
+
 </menu>
