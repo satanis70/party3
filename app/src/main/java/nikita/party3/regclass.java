@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,24 +42,19 @@ import id.zelory.compressor.Compressor;
 public class regclass extends Activity {
     private static final int MY_REQUEST_CODE = 7117;
     List<AuthUI.IdpConfig> providers;
-    private ImageView imageView;
-    public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user;
     private Uri filePath;
-    FirebaseDatabase firebaseDatabase;
-    private Uri imageuri;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;
     StorageReference storageReference;
-
+    UserInfo userInfo;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_layout);
 
-
         Button buttonUpload = findViewById(R.id.buttonUp);
         Button buttonChoose =  findViewById(R.id.buttonChoise);
-        imageView =  findViewById(R.id.imgView);
         FirebaseApp.initializeApp(this);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -68,8 +64,11 @@ public class regclass extends Activity {
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
 
+
         showSignInOptions();
 
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         buttonChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +102,9 @@ public class regclass extends Activity {
                         .setIsSmartLockEnabled(false)
                         .setAlwaysShowSignInMethodScreen(true)
                         .build(), MY_REQUEST_CODE
+
         );
+
 
 
     }
@@ -114,31 +115,45 @@ public class regclass extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MY_REQUEST_CODE){
 
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-            if (resultCode == RESULT_OK){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
+            if (storageReference.child("images/" + uid)!=null) {
+                Intent intent = new Intent(regclass.this, Main2Activity.class);
+                startActivity(intent);
             } else {
-               // Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (requestCode == MY_REQUEST_CODE) {
+
+                    IdpResponse response = IdpResponse.fromResultIntent(data);
+
+                    if (resultCode == RESULT_OK) {
+
+
+                    } else {
+                        // Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                        && data != null && data.getData() != null) {
+
+
+                    filePath = data.getData();
+
+
+                    try {
+
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
         }
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
-            filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void chooseImage() {
         Intent intent = new Intent();
@@ -154,6 +169,7 @@ public class regclass extends Activity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
+
 
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
