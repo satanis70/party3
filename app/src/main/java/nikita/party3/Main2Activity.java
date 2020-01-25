@@ -88,13 +88,15 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        myToolbar.setNavigationIcon(R.drawable.ic_dehaze_black_24dp);
+        
 
 
 
 
 
 
-
+/*
         //закгрузка фото
         storageRef.child("images/"+ user.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -112,7 +114,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
                         "Ошибка!", Toast.LENGTH_SHORT);
                 toast.show();
             }
-        });
+        });*/
 
         MobileAds.initialize(this, "ca-app-pub-6015294152911442~7358842002");
 
@@ -188,7 +190,6 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
 
                 selectItemDrawer(menuItem);
 

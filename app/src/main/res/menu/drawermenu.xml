@@ -2,19 +2,61 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Main2Activity">
+    tools:context=".Main2Activity"
 
-    <item android:id="@+id/facebook"
-        android:title="@string/vk"
-        android:icon="@drawable/ic_vk"
-        app:showAsAction="ifRoom"
-        >
-    </item>
+    >
 
-    <item android:id="@+id/Out"
-        android:title="@string/logout"
-        app:showAsAction="always"
-        />
+    <group android:checkableBehavior="none"
+        android:layout_gravity="end"
+
+        android:gravity="end">
+
+
+
+        <item android:id="@+id/empty1"
+            android:title=""
+            app:showAsAction="never">
+
+        </item>
+        <item android:id="@+id/facebook"
+            android:title="@string/vk"
+            android:icon="@drawable/ic_vk"
+            app:showAsAction="ifRoom"
+            android:gravity="end"
+            android:layout_gravity="end"
+            >
+        </item>
+        <item android:id="@+id/Out"
+            android:title="@string/logout"
+            android:icon="@drawable/ic_logout"
+            app:showAsAction="ifRoom"
+            android:paddingLeft="0dp"
+            android:gravity="end"
+            android:layout_gravity="end"
+            />
+        <item android:id="@+id/empty2"
+            android:title=""
+            app:showAsAction="never">
+
+        </item>
+
+        <item android:id="@+id/empty3"
+            android:title=""
+            app:showAsAction="never">
+        </item>
+        <item android:id="@+id/empty4"
+            android:title=""
+            app:showAsAction="never">
+        </item>
+        <item android:id="@+id/empty5"
+            android:title=""
+            app:showAsAction="never">
+        </item>
+
+
+    </group>
+
+
 
 
 </menu>

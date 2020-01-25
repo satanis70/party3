@@ -53,8 +53,8 @@ public class regclass extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_layout);
 
-        Button buttonUpload = findViewById(R.id.buttonUp);
-        Button buttonChoose =  findViewById(R.id.buttonChoise);
+     /*   Button buttonUpload = findViewById(R.id.buttonUp);
+        Button buttonChoose =  findViewById(R.id.buttonChoise);*/
         FirebaseApp.initializeApp(this);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -70,7 +70,7 @@ public class regclass extends Activity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        buttonChoose.setOnClickListener(new View.OnClickListener() {
+      /*  buttonChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
@@ -85,7 +85,7 @@ public class regclass extends Activity {
 
             }
         });
-
+*/
 
 
 
@@ -118,53 +118,54 @@ public class regclass extends Activity {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            if (storageReference.child("images/" + uid)!=null) {
+            /*if (storageReference.child("images/" + uid)!=null) {
                 Intent intent = new Intent(regclass.this, Main2Activity.class);
                 startActivity(intent);
-            } else {
+            } else {*/
 
                 if (requestCode == MY_REQUEST_CODE) {
 
                     IdpResponse response = IdpResponse.fromResultIntent(data);
 
                     if (resultCode == RESULT_OK) {
-
+                        Intent intent = new Intent(regclass.this, Main2Activity.class);
+                        startActivity(intent);
 
                     } else {
-                        // Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                         Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }
-                if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                        && data != null && data.getData() != null) {
+                /*if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
 
 
-                    filePath = data.getData();
+            filePath = data.getData();
 
 
-                    try {
+            try {
 
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+        }*/
 
         }
 
 
-    private void chooseImage() {
+    /*private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
 
-    }
+    }*/
 
 
-    private void uploadImage() {
+    /*private void uploadImage() {
         if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
@@ -213,7 +214,7 @@ public class regclass extends Activity {
 
             }
 
-    }
+    }*/
 
     @Override
     public void onBackPressed() { }
