@@ -23,7 +23,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
@@ -63,7 +67,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl("gs://party2-ec0fd.appspot.com");
     DatabaseReference mDatabase;
-
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationIcon(R.drawable.ic_dehaze_black_24dp);
+
         
 
 
@@ -116,13 +121,28 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
             }
         });*/
 
+
+
+
+
+            MobileAds.initialize(this, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
+                }
+            });
+            mAdView = findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+
+
+
         MobileAds.initialize(this, "ca-app-pub-6015294152911442~7358842002");
 
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
 
         mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
-                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
+                new AdRequest.Builder().build());
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -214,13 +234,18 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     @Override
     public void onRewardedVideoAdLoaded() {
 
-        buttonstartbanner.setEnabled(true);
+
+        if (mRewardedVideoAd.isLoaded()){
+            buttonstartbanner.setEnabled(true);
+        } else  buttonstartbanner.setEnabled(false);
+
         buttonstartbanner.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View view) {
-                buttonstartbanner.setEnabled(false);
+
                 if (mRewardedVideoAd.isLoaded()) {
+                    buttonstartbanner.setEnabled(true);
                     mRewardedVideoAd.show();
                 } else {
                     onRewardedVideoAdLoaded();
@@ -242,7 +267,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     @Override
     public void onRewardedVideoAdClosed() {
         mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
-                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
+                new AdRequest.Builder().build());
         onRewardedVideoAdLoaded();
 
     }
@@ -282,19 +307,19 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
     @Override
     public void onRewardedVideoAdLeftApplication() {
         mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
-                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
+                new AdRequest.Builder().build());
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
         mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
-                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
+                new AdRequest.Builder().build());
     }
 
     @Override
     public void onRewardedVideoCompleted() {
         mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
-                new AdRequest.Builder().addTestDevice("0C52F257D7DEE62604AFE01F2799EF58").build());
+                new AdRequest.Builder().build());
     }
 
 

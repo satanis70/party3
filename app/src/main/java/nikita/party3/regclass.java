@@ -51,7 +51,7 @@ public class regclass extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reg_layout);
+        setContentView(R.layout.activity_main2);
 
      /*   Button buttonUpload = findViewById(R.id.buttonUp);
         Button buttonChoose =  findViewById(R.id.buttonChoise);*/
@@ -116,7 +116,7 @@ public class regclass extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             /*if (storageReference.child("images/" + uid)!=null) {
                 Intent intent = new Intent(regclass.this, Main2Activity.class);
