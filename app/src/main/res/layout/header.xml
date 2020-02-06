@@ -6,13 +6,10 @@
     android:layout_height="match_parent">
 
 
-   <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/panelsverkhu"
-        tools:ignore="ContentDescription,MissingConstraints">
-    </ImageView>
-
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar">
+    </include>
 
     <GridLayout
         android:layout_width="match_parent"
@@ -22,6 +19,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="3dp">
+
 
 
         <ImageView

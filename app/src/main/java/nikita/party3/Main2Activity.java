@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -81,6 +82,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         navigationView =  findViewById(R.id.navView);
         toggle.syncState();
         textView2 = findViewById(R.id.textView2);
+        AppLovinSdk.initializeSdk(this);
 
         setupDrawerContent(navigationView);
         View headerView = navigationView.getHeaderView(0);

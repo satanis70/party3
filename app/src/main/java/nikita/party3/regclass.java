@@ -51,7 +51,7 @@ public class regclass extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.reg_layout);
 
      /*   Button buttonUpload = findViewById(R.id.buttonUp);
         Button buttonChoose =  findViewById(R.id.buttonChoise);*/
@@ -69,6 +69,7 @@ public class regclass extends Activity {
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
 
       /*  buttonChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +105,7 @@ public class regclass extends Activity {
                         .build(), MY_REQUEST_CODE
 
         );
+
 
 
 

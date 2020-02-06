@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".Home"
@@ -15,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <activity android:name=".Main2Activity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
@@ -43,9 +46,17 @@
             </intent-filter>
         </activity>
 
+
+        <meta-data android:name="applovin.sdk.key"
+            android:value="1ZKG_a1lWooLSJWb-
+            nLdZ4nzeM3lnxsp1DoWw1GgCqbKIm8U-AIvLZO0AbH97yBgm4sQdiAfZ_bi3noMzlm6-M"  />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6015294152911442~1501686762"/>
+
+
+
     </application>
 
 </manifest>
