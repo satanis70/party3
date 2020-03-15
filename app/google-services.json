@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "270118620133",
+    "firebase_url": "https://party2-ec0fd.firebaseio.com",
+    "project_id": "party2-ec0fd",
+    "storage_bucket": "party2-ec0fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270118620133:android:94de39dd3e7ae97a73fd0c",
+        "android_client_info": {
+          "package_name": "nikita.party3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270118620133-fucuojm1vcg38qohn38gt7n9br64dnuu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nikita.party3",
+            "certificate_hash": "cd3a03a90d00a582b417ec1463922223218783fb"
+          }
+        },
+        {
+          "client_id": "270118620133-217s5dd27oio049lelrcqov07ndj0u20.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nikita.party3",
+            "certificate_hash": "cfac142a2c5b5ade405d5c6ba583a4a48290b257"
+          }
+        },
+        {
+          "client_id": "270118620133-1t3vaiv1ejh0pck6ll01h0cvn9vdc6ga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nikita.party3",
+            "certificate_hash": "490df264a8d321a67e6253ce3f606b4e79469fec"
+          }
+        },
+        {
+          "client_id": "270118620133-8alosnc7rht2ka4sb9j3dpfqqil3iau9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nikita.party3",
+            "certificate_hash": "a2e1804c63a970c18baa0d7c6bce0313d9441536"
+          }
+        },
+        {
+          "client_id": "270118620133-cs9ueo27si4n6hhmoqvf8baf21fl2nol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nikita.party3",
+            "certificate_hash": "3442d5f684b4234ebb32c3e615e40eff017c17bc"
+          }
+        },
+        {
+          "client_id": "270118620133-9lurtjn0hd6tq7i4dpsgqvvovp0628nc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nikita.party3",
+            "certificate_hash": "718c160e8beb8620185470bf56a54d41f477cb00"
+          }
+        },
+        {
+          "client_id": "270118620133-oo20jn1mgu8pvf6jnprlnb0ct9lbi3bn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nikita.party3",
+            "certificate_hash": "93b9895bcfe08e95f264770f05c7900e5f92b19d"
+          }
+        },
+        {
+          "client_id": "270118620133-8nd09e23kq4d2pg6qgrup3jiig4ufbau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUuTNF5zM_bd1hUb-WiTR7YGLbeqgC7eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270118620133-8nd09e23kq4d2pg6qgrup3jiig4ufbau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-6015294152911442~7358842002"
+    }
+  ],
+  "configuration_version": "1"
+}

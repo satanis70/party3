@@ -94,7 +94,7 @@ public class regclass extends Activity {
 
 
 
-    private void showSignInOptions() {
+    public void showSignInOptions() {
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(providers)
@@ -115,7 +115,7 @@ public class regclass extends Activity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();

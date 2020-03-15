@@ -143,7 +143,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
 
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
                 new AdRequest.Builder().build());
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -207,7 +207,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
     }
 
-    private void setupDrawerContent(NavigationView navigationView){
+    public void setupDrawerContent(NavigationView navigationView){
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -268,7 +268,7 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
     @Override
     public void onRewardedVideoAdClosed() {
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
                 new AdRequest.Builder().build());
         onRewardedVideoAdLoaded();
 
@@ -308,19 +308,19 @@ public class Main2Activity extends AppCompatActivity implements RewardedVideoAdL
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
                 new AdRequest.Builder().build());
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
                 new AdRequest.Builder().build());
     }
 
     @Override
     public void onRewardedVideoCompleted() {
-        mRewardedVideoAd.loadAd("ca-app-pub-6015294152911442/1165308054",
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
                 new AdRequest.Builder().build());
     }
 
